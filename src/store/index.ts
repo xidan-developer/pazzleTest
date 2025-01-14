@@ -1,8 +1,9 @@
 import { defineStore } from 'pinia'
 import { computed, type Ref, ref } from 'vue'
-import type { user } from '@/types'
+import type { User } from '@/types'
+import { ComputedRef } from 'vue/dist/vue';
 export const useIndexStore = defineStore('IndexStore', () => {
-  const data: Ref<user[]> = ref([
+  const data: Ref<User[]> = ref([
     {
       id: 1,
       nickname: 'AeroXtreme',
@@ -145,7 +146,7 @@ export const useIndexStore = defineStore('IndexStore', () => {
     }
   ])
 
-  const getData = computed(() => {
+  const getData:ComputedRef<User[]> = computed(() => {
     return data.value
   })
 

@@ -1,16 +1,19 @@
 <script setup lang="ts">
-import Card from 'primevue/card'
-import { computed, type ComputedRef, ref } from 'vue'
-import SearchBar from '@/components/SearchBar.vue'
-import type { user } from '@/types/index'
-import { useIndexStore } from '@/store'
-const value = ref('')
-const indexStore = useIndexStore()
-const filterData: ComputedRef<user[]> = computed(() => {
-  return indexStore.getData.filter((item: user) =>
+import Card from 'primevue/card';
+import { computed, type ComputedRef, type Ref, ref } from 'vue';
+import SearchBar from '@/components/SearchBar.vue';
+import type { User } from '@/types';
+import { useIndexStore } from '@/store';
+
+const value: Ref<string> = ref('');
+
+const indexStore = useIndexStore();
+
+const filterData: ComputedRef<User[]> = computed(() => {
+  return indexStore.getData.filter((item: User) =>
     item.nickname.toString().toLowerCase().includes(value.value.toString().toLowerCase())
-  )
-})
+  );
+});
 </script>
 
 <template>

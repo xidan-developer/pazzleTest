@@ -1,17 +1,18 @@
 <script setup lang="ts">
 import InputText from 'primevue/inputtext'
 import Button from 'primevue/button'
-import { defineEmits, defineProps, ref, withDefaults } from 'vue'
+import { defineEmits, defineProps, Ref, ref, withDefaults } from 'vue';
 import HintList from '@/components/HintList.vue'
-import type { user } from '@/types'
+import type { User } from '@/types'
 import { useRouter } from 'vue-router'
+
 const router = useRouter()
 const emit = defineEmits(['update:value'])
 
 interface Props {
   value: string
   hint?: boolean
-  data?: user[]
+  data?: User[]
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -19,15 +20,15 @@ const props = withDefaults(defineProps<Props>(), {
   hint: false
 })
 
-const moveDown = () => {
+const moveDown = (): void => {
   if (!props.data) return
   if (selectIndex.value < props.data.length - 1) selectIndex.value++
 }
-const moveUp = () => {
+const moveUp = (): void => {
   if (!props.data) return
   if (selectIndex.value > 0) selectIndex.value--
 }
-const moveEnter = () => {
+const moveEnter = (): void => {
   if (!props.data) return
   if (selectIndex.value >= 0) {
     router.push({
@@ -36,11 +37,11 @@ const moveEnter = () => {
     })
   }
 }
-const handleInput = (value: string) => {
+const handleInput = (value: string): void => {
   emit('update:value', value)
 }
 
-const selectIndex = ref(-1)
+const selectIndex:Ref<number> = ref(-1)
 </script>
 
 <template>

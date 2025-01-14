@@ -1,19 +1,20 @@
 <script setup lang="ts">
-import Listbox from 'primevue/listbox'
+import ListBox from 'primevue/listbox'
 import { computed } from 'vue'
 import { type ComputedRef, defineProps } from 'vue/dist/vue'
-import type { user } from '@/types'
+import type { User } from '@/types'
 import { useRouter } from 'vue-router'
+
 const router = useRouter()
 const props = defineProps<{
-  data: user[]
+  data: User[]
   selectIndex?: number
 }>()
 
-const filterData: ComputedRef<user[]> = computed(() => {
+const filterData: ComputedRef<User[]> = computed(() => {
   return props.data.filter((_, index) => index < 10)
 })
-const pushTest = (data: user) => {
+const pushInRoute = (data: User) => {
   router.push({
     name: 'appObjectView',
     params: { nickname: data.nickname }
@@ -22,7 +23,7 @@ const pushTest = (data: user) => {
 </script>
 
 <template>
-  <Listbox
+  <ListBox
     :modelValue="filterData[props.selectIndex]"
     :options="filterData"
     optionLabel="name"
@@ -30,9 +31,9 @@ const pushTest = (data: user) => {
     listStyle="max-height:250px"
   >
     <template #option="slotProps">
-      <div @click="pushTest(slotProps.option)">{{ slotProps.option.nickname }}</div>
+      <div @click="pushInRoute(slotProps.option)">{{ slotProps.option.nickname }}</div>
     </template>
-  </Listbox>
+  </ListBox>
 </template>
 
 <style scoped lang="sass"></style>

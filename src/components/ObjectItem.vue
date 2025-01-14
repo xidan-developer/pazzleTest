@@ -2,11 +2,12 @@
 import { useIndexStore } from '@/store'
 import { onMounted, Ref, ref } from 'vue'
 import { useRoute } from 'vue-router'
-import { user } from '@/types'
+import { User } from '@/types'
 import Card from 'primevue/card'
+
 const indexStore = useIndexStore()
 const route = useRoute()
-const item: Ref<user | undefined> = ref()
+const item: Ref<User | undefined> = ref()
 onMounted(() => {
   let nickname = route.params.nickname
   item.value = indexStore.getData.find((item) => item.nickname === nickname)
